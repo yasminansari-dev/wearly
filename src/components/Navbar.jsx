@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
+import { Shirt } from "lucide-react";
 import AuthPage from "./AuthPage";
 
 const primaryLinks = ["Discover", "Sell", "Donate", "Order"];
+
+function HangerIcon() {
+  return <Shirt className="h-7 w-7 shrink-0" strokeWidth={2.1} />;
+}
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,8 +35,8 @@ function Navbar() {
           href="#"
           aria-label="Wearly home"
         >
-          <span className="grid h-[36px] w-[36px] rotate-[-8deg] place-items-center rounded-[12px_12px_12px_3px] bg-moss text-[18px] tracking-[-0.08em] text-ivory shadow-[3px_3px_0_#5B4439] transition-all duration-200 group-hover:rotate-0 group-hover:bg-brown group-hover:shadow-[5px_5px_0_#8F9E6C]">
-            W
+          <span className="grid place-items-center text-olive">
+            <HangerIcon />
           </span>
           <span>Wearly</span>
         </a>

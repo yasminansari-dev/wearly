@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import AuthPage from "./AuthPage";
 import Navbar from "./components/Navbar";
 
 function App() {
-  <>
-  <Navbar />
-  </>
+  return (
+     
+        <Navbar />
+    
+  );
 }
 
 export default App;
