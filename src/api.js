@@ -3,6 +3,7 @@ const API_REQUEST_BASE = import.meta.env.DEV ? "/api" : API_BASE_URL;
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_REQUEST_BASE}${path}`, {
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...options.headers,
@@ -33,6 +34,16 @@ export function registerUser(details) {
   return request("/auth/register", {
     method: "POST",
     body: JSON.stringify(details),
+  });
+}
+
+export function getCurrentUser() {
+  return request("/").then((payload) => {
+    if (payload?.message && !payload.user) {
+      return null;
+    }
+
+    return payload?.user || payload;
   });
 }
 
