@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Shirt } from "lucide-react";
 import AuthPage from "./AuthPage";
+import Hero from "./Hero";
 
 const primaryLinks = ["Discover", "Sell", "Donate", "Order"];
 
@@ -24,7 +25,8 @@ function Navbar() {
     return <AuthPage initialMode={currentHash === "#register" ? "register" : "login"} />;
   }
 
-  return (
+  return <Hero />;
+  /* return (
     <header className="border-b border-olive/15 bg-ivory">
       <nav
         className="mx-auto flex min-h-[82px] w-[calc(100%-32px)] max-w-[1440px] flex-wrap items-center gap-6 pt-4 sm:w-[calc(100%-64px)] lg:flex-nowrap lg:gap-10 lg:pt-0"
@@ -86,7 +88,7 @@ function Navbar() {
         </button>
       </nav>
     </header>
-  );
+  ); */
 }
 
 export default Navbar;

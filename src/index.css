@@ -16,3 +16,52 @@
     font-family: "DM Sans", sans-serif;
   }
 }
+
+@layer components {
+  .wearly-hero { position: relative; min-height: 100svh; overflow: hidden; isolation: isolate; background: #071426; color: #f5f5f2; }
+  .wearly-hero canvas { position: absolute !important; inset: 0; z-index: -2; }
+  .wearly-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(7,20,38,.9) 0%, rgba(7,20,38,.18) 42%, rgba(7,20,38,.2) 72%, rgba(7,20,38,.8) 100%), linear-gradient(0deg, rgba(7,20,38,.86) 0%, transparent 35%); }
+  .hero-glow { position: absolute; z-index: -1; top: -30%; left: 41%; width: 34vw; height: 90vh; pointer-events: none; background: rgba(164,178,160,.08); filter: blur(90px); transform: rotate(9deg); }
+  .hero-header { position: absolute; top: 0; left: 0; right: 0; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 32px 5vw; }
+  .hero-logo { color: #f5f5f2; font: 600 15px/1 "Space Grotesk", sans-serif; letter-spacing: .28em; text-decoration: none; }
+  .hero-logo span { display: inline-grid; width: 25px; height: 25px; margin-right: 9px; place-items: center; border: 1px solid rgba(245,245,242,.5); border-radius: 50%; font-size: 12px; letter-spacing: 0; }
+  .hero-menu { position: absolute; right: 5vw; color: rgba(245,245,242,.7); font: 500 11px/1 "DM Sans", sans-serif; letter-spacing: .14em; text-decoration: none; text-transform: uppercase; }
+  .hero-menu span { margin-left: 8px; color: #a5b998; font-size: 16px; }
+  .hero-copy { position: absolute; z-index: 2; top: 50%; left: 7.5vw; width: min(440px, 36vw); transform: translateY(-42%); }
+  .hero-kicker { margin: 0 0 24px; color: #a5b998; font: 500 10px/1 "DM Sans", sans-serif; letter-spacing: .26em; }
+  .hero-copy h1 { margin: 0; font: 500 clamp(44px, 5.1vw, 88px)/.87 "Space Grotesk", sans-serif; letter-spacing: -.07em; }
+  .hero-copy h1 em { color: #a5b998; font-style: normal; }
+  .hero-description { max-width: 360px; margin: 29px 0 32px; color: rgba(245,245,242,.62); font: 400 14px/1.7 "DM Sans", sans-serif; }
+  .hero-actions { display: flex; align-items: center; gap: 12px; }
+  .hero-actions a { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 20px; color: #f5f5f2; font: 600 11px/1 "DM Sans", sans-serif; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+  .hero-primary { background: #3d4a2f; }
+  .hero-primary span { margin-left: 14px; font-size: 16px; }
+  .hero-secondary { border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); backdrop-filter: blur(10px); }
+  .hero-meta { position: absolute; bottom: 35px; z-index: 2; color: rgba(245,245,242,.38); font: 500 9px/1 "DM Sans", sans-serif; letter-spacing: .2em; }
+  .hero-meta span { display: inline-block; width: 24px; height: 1px; margin: 0 10px 3px; background: #7c5a5b; }
+  .hero-meta-left { left: 5vw; }
+  .hero-meta-right { right: 5vw; color: rgba(245,245,242,.55); }
+  .hero-meta-right span { width: auto; height: auto; margin-left: 12px; color: #a5b998; background: transparent; font-size: 18px; }
+  .hero-slider { position: absolute; bottom: 34px; left: 50%; z-index: 3; display: flex; gap: 11px; transform: translateX(-50%); }
+  .hero-slider span { width: 7px; height: 7px; display: block; border: 1px solid rgba(245,245,242,.5); transform: rotate(45deg); }
+  .hero-slider .active { border-color: #a5b998; background: #a5b998; }
+  .hero-product-label { position: absolute; right: 8vw; bottom: 20%; display: flex; flex-direction: column; gap: 6px; color: rgba(245,245,242,.58); font: 500 9px/1 "DM Sans", sans-serif; letter-spacing: .18em; }
+  .hero-product-label span { color: #7c5a5b; font-size: 16px; }
+  .hero-product-label strong { color: #f5f5f2; font-size: 11px; font-weight: 500; }
+  .hero-product-label small { font-size: 8px; }
+  @media (max-width: 760px) {
+    .hero-header { justify-content: flex-start; padding: 25px 24px; }
+    .hero-menu { right: 24px; }
+    .hero-copy { top: auto; bottom: 17%; left: 24px; width: calc(100% - 48px); transform: none; }
+    .hero-copy h1 { font-size: clamp(47px, 14vw, 72px); }
+    .hero-description { max-width: 310px; margin: 22px 0 24px; font-size: 13px; }
+    .hero-actions { flex-wrap: wrap; }
+    .hero-actions a { min-height: 44px; padding: 0 15px; font-size: 10px; }
+    .hero-meta { bottom: 23px; }
+    .hero-meta-left { left: 24px; }
+    .hero-meta-right { right: 24px; font-size: 0; }
+    .hero-meta-right span { margin: 0; font-size: 18px; }
+    .hero-product-label { right: 24px; bottom: 51%; }
+    .hero-glow { left: 30%; width: 58vw; }
+  }
+}
