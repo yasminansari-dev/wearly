@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://rewear-final-p.onrender.com";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://rewear-final-p.onrender.com";
 const API_REQUEST_BASE = import.meta.env.DEV ? "/api" : API_BASE_URL;
 
 async function request(path, options = {}) {
@@ -38,4 +38,22 @@ export function registerUser(details) {
 
 export function startGoogleLogin() {
   window.location.assign(`${API_BASE_URL}/auth/login`);
+}
+
+export function completeGoogleLogin() {
+  const params = new URLSearchParams(window.location.search);
+  const accessToken = params.get("access_token") || params.get("token");
+  const refreshToken = params.get("refresh_token");
+
+  if (!accessToken) {
+    return false;
+  }
+
+  localStorage.setItem("wearly_access_token", accessToken);
+  if (refreshToken) {
+    localStorage.setItem("wearly_refresh_token", refreshToken);
+  }
+
+  window.history.replaceState({}, document.title, `${window.location.pathname}#home`);
+  return true;
 }

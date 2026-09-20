@@ -80,7 +80,7 @@ function AuthPage({ initialMode }) {
   return (
     <main className="min-h-screen bg-[#f3efe9] text-[#233126]">
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col md:flex-row">
-        <section className="relative flex min-h-[420px] flex-1 overflow-hidden md:min-h-screen">
+        <section className="relative flex min-h-[360px] flex-1 overflow-hidden md:min-h-screen md:flex-[1.15]">
           <div
             className="absolute inset-0"
             style={{
@@ -91,17 +91,17 @@ function AuthPage({ initialMode }) {
           />
           <div className="absolute inset-0 bg-[#1d2d25]/75" />
 
-          <div className="relative z-10 flex w-full flex-col justify-between p-6 sm:p-8 lg:p-12">
+          <div className="relative z-10 flex w-full flex-col mt-8 sm:p-8 lg:p-12">
             <div className="flex items-center gap-0.5 text-[#f8f2eb]">
             </div>
 
             <div className="max-w-[620px] text-[#f8f2eb]">
-              <h1 className="font-display text-4xl font-bold leading-[0.96] tracking-[-0.06em] sm:text-5xl lg:text-[5rem]">
+              <h1 className="font-display text-4xl font-bold leading-[0.88] tracking-[-0.06em] sm:text-5xl lg:text-[5rem]">
                 Good Clothes <br /> Deserve a <br />
                 <span className="text-moss">Second Chance.</span>
               </h1>
 
-              <p className="mt-6 max-w-xl text-base leading-7 text-[#f8f2eb]/80 sm:text-lg">
+              <p className="mt-4 max-w-xl text-base leading-7 text-[#f8f2eb]/80 sm:text-lg">
                 Buy and sell pre-owned clothes with confidence. Quality pieces, better prices, and a more sustainable tomorrow.
               </p>
 
@@ -119,18 +119,18 @@ function AuthPage({ initialMode }) {
               </div>
             </div>
 
-            <div className="mt-2 flex items-center justify-between text-[#f8f2eb]">
+            <div className="mt-6 sm:mt-10 flex items-center justify-between text-[#f8f2eb]">
               <div className="font-display text-3xl italic font-light tracking-[-0.05em] text-[#f3efe9]">
                 Wear Less <span className="block text-left">Waste Less</span>
               </div>
             </div>
           </div>
-        </section>
+        </section> 
 
-        <section className="relative flex flex-1 items-center justify-center bg-[#f5f1ec] px-5 py-8 sm:px-8 lg:px-12">
+        <section className="relative flex min-w-0 flex-1 items-center justify-center bg-[#f5f1ec] px-5 pb-10 pt-24 sm:px-8 sm:pt-24 lg:px-12 lg:py-8 md:flex-1">
           <a
-            className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-[#233126]/15 bg-transparent px-4 py-2 text-sm font-bold text-[#233126] transition-all hover:-translate-y-0.5 hover:border-[#233126]/25 hover:bg-[#e8e3dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8f9e6c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f1ec] sm:left-8 sm:top-8"
-            href="#"
+            className="absolute left-5 top-5 z-20 inline-flex items-center gap-2 rounded-full border border-[#233126]/15 bg-transparent px-4 py-2 text-sm font-bold text-[#233126] transition-all hover:-translate-y-0.5 hover:border-[#233126]/25 hover:bg-[#e8e3dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8f9e6c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f1ec] sm:left-8 sm:top-8"
+            href="#home"
           >
             <span aria-hidden="true">←</span>
             Back to home
