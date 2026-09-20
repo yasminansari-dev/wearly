@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
-import clo1 from "../assets/clo1.jpg";
-import clo2 from "../assets/clo2.jpg";
-import clo3 from "../assets/clo3.jpg";
-import clo4 from "../assets/clo4.jpg";
+import { ArrowUpRight, ChevronDown, Sparkles, ShieldCheck, RefreshCw } from "lucide-react";
+import { CATALOG_PRODUCTS } from "../data/mockData";
 
-const collection = [
-  { image: clo2, label: "No. 02", position: "left" },
-  { image: clo1, label: "No. 01", position: "center" },
-  { image: clo3, label: "No. 03", position: "right" },
-  { image: clo4, label: "No. 04", position: "back" },
-];
-
-export default function ForHero() {
+export default function ForHero({ onQuickView }) {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeFrontIndex, setActiveFrontIndex] = useState(1); // Default to Center card (index 1)
+  const [isPaused, setIsPaused] = useState(false);
 
+  const collection = [
+    { ...CATALOG_PRODUCTS[1], label: "No. 02", tag: "Archive 2022" }, // The Row
+    { ...CATALOG_PRODUCTS[0], label: "No. 01", tag: "Pristine 10/10" }, // Lemaire
+    { ...CATALOG_PRODUCTS[2], label: "No. 03", tag: "Fall Winter" }, // Jil Sander
+    { ...CATALOG_PRODUCTS[3], label: "No. 04", tag: "Collector Edit" }, // Margiela
+  ];
+
+  // Scroll Parallax Handler
   useEffect(() => {
     const updateScroll = () => {
-      const progress = Math.min(window.scrollY / (window.innerHeight * 1.1), 1);
+      const progress = Math.min(window.scrollY / (window.innerHeight * 1.2), 1);
       setScrollProgress(progress);
     };
 
@@ -26,85 +26,239 @@ export default function ForHero() {
     return () => window.removeEventListener("scroll", updateScroll);
   }, []);
 
-  const galleryShift = scrollProgress * 28;
+  // Automatic 3D Stack Rotation Effect (Every 3.5 seconds)
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveFrontIndex((prev) => (prev + 1) % collection.length);
+    }, 3500);
+
+    return () => clearInterval(timer);
+  }, [isPaused, collection.length]);
+
+  const galleryShift = scrollProgress * 25;
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#1d2d25] text-[#f5f5f2]">
+    <section id="hero" className="relative min-h-screen overflow-hidden bg-black text-bone pt-28 lg:pt-10">
+      {/* Subtle Luxury Ambient Background */}
       <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at 55% 43%, rgba(143, 158, 108, 0.3), transparent 27%), #1d2d25",
-        }}
+        className="pointer-events-none absolute inset-0 z-0 opacity-60"
+        // style={{
+        //   background:
+        //     "radial-gradient(circle at 65% 35%, rgba(125, 147, 113, 0.22), transparent 45%), radial-gradient(circle at 20% 75%, rgba(229, 213, 190, 0.08), transparent 35%), #0e1712",
+        // }}
       />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(125,147,113,0.15),rgba(255,255,255,0))]" />
 
-      <section
-        aria-labelledby="hero-title"
-        className="absolute left-[7.5vw] top-1/2 z-10 w-[min(410px,36vw)] -translate-y-[43%] transition-transform duration-300"
-        style={{ transform: `translateY(calc(-43% + ${galleryShift * 0.6}px))` }}
-      >
-        <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.25em] text-[#6a7d5f]">THE CIRCULAR EDIT / 001</p>
-        <h1 id="hero-title" className="m-0 text-[clamp(44px,5vw,82px)] font-medium leading-[0.87] tracking-[-0.07em] text-white">
-          REWEAR
-          <br />
-          <span className="text-[#6a7d5f]">THE FUTURE</span>
-        </h1>
-        <p className="mt-7 max-w-[335px] text-[14px] leading-7 text-white/65">
-          Premium pre-loved fashion for a more considered wardrobe. Discover pieces with a past and a future.
-        </p>
-        <div className="mt-8 flex items-center gap-5">
-          <a href="#discover" className="inline-flex items-center gap-3 bg-[#6a7d5f] px-[18px] py-[14px] text-[10px] font-semibold uppercase tracking-[0.1em] text-white shadow-[0_18px_28px_rgba(106,125,95,0.25)] transition hover:-translate-y-1">
-            Explore collection <ArrowUpRight size={17} />
-          </a>
-          <a href="#donate" className="border-b border-white/40 pb-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/80 transition hover:-translate-y-1 hover:text-white">
-            Donate clothing
-          </a>
-        </div>
-      </section>
+      {/* Main Container */}
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-[1440px] flex-col justify-between px-5 sm:px-8 lg:min-h-screen lg:flex-row lg:items-center lg:px-12">
+        {/* Left Editorial Copy */}
+        <div
+          className="flex w-full flex-col justify-center py-6 sm:py-10 lg:w-[42%] lg:py-0 transition-transform duration-300"
+          style={{ transform: `translateY(${galleryShift * 0.4}px)` }}
+        >
+          {/* Eyebrow badge */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-sage-500/30 bg-forest-850/60 px-3.5 py-1.5 backdrop-blur-md self-start">
+            <Sparkles size={13} className="text-champagne-300 animate-pulse" />
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-sage-300">
+              The Circular Edit / 001
+            </span>
+          </div>
 
-      <div
-        className="absolute inset-0 z-0 transition-transform duration-300"
-        aria-label="Featured clothing collection"
-        style={{ transform: `translateY(${galleryShift * 0.7}px)` }}
-      >
-        {collection.map((item, index) => {
-          const placement = {
-            left: { className: "left-[29%] top-[24%] h-[43vh] w-[16vw] rotate-[-7deg]", x: -18, y: 18 },
-            center: { className: "left-[48%] top-[13%] h-[69vh] w-[31vw] rotate-[2deg]", x: 0, y: -18 },
-            right: { className: "right-[1%] top-[24%] h-[43vh] w-[16vw] rotate-[7deg]", x: 20, y: 12 },
-            back: { className: "right-[19%] top-[7%] h-[27vh] w-[12vw] rotate-[12deg] opacity-20 blur-[1px]", x: 0, y: -8 },
-          }[item.position];
+          {/* Headline */}
+          <h1 className="mt-5 font-serif text-[clamp(2.75rem,5.5vw,5.5rem)] font-light leading-[0.92] tracking-tight text-bone">
+            REWEAR <br />
+            <span className="italic font-normal text-sage-400">THE FUTURE.</span>
+          </h1>
 
-          return (
-            <figure
-              key={item.label}
-              className={`absolute overflow-hidden bg-[#172638] shadow-[0_25px_70px_rgba(0,0,0,0.28)] transition-all duration-400 hover:shadow-[0_35px_85px_rgba(0,0,0,0.42)] hover:brightness-105 ${placement.className}`}
-              style={{
-                transform: `translate3d(${placement.x + scrollProgress * 14}px, ${placement.y + scrollProgress * 18}px, 0) rotate(${placement.className.includes("rotate-") ? placement.className.match(/rotate-\[([\-\d]+deg)\]/)?.[1] || "0deg" : "0deg"})`,
-              }}
+          {/* Subtitle */}
+          <p className="mt-5 max-w-md text-sm sm:text-base leading-relaxed text-bone/70 font-sans">
+            Curated pre-loved luxury and archival garments authenticated with obsessive precision.
+            Wear less, choose better, and join the circular fashion movement.
+          </p>
+
+          {/* CTAs */}
+          <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-5">
+            <a
+              href="#discover"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-champagne-300 px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-forest-950 shadow-luxury transition-all duration-300 hover:bg-champagne-200 hover:shadow-champagne-glow hover:-translate-y-0.5"
             >
-              <img src={item.image} alt={`Featured clothing ${item.label}`} className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.04]" style={{ filter: "saturate(0.78) contrast(1.04)" }} />
-              <figcaption className="absolute bottom-3 right-3 text-[9px] font-medium uppercase tracking-[0.17em] text-white/70">{item.label}</figcaption>
-            </figure>
-          );
-        })}
-      </div>
+              <span>Explore Collection</span>
+              <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
 
-      <div className="absolute inset-x-[5vw] bottom-[32px] z-20 flex items-center justify-between text-[9px] font-medium uppercase tracking-[0.2em] text-white/45">
-        <span className="inline-flex items-center gap-2">
-          VOL. 01 <span className="h-px w-6 bg-[#7c5a5b]" /> EST. 2024
-        </span>
+            <a
+              href="#sell"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-forest-850/40 px-5 py-3.5 text-xs font-semibold uppercase tracking-widest text-bone backdrop-blur-sm transition-all duration-300 hover:border-sage-400 hover:bg-forest-800 hover:-translate-y-0.5"
+            >
+              <span>Consign Item</span>
+            </a>
+          </div>
 
-        <div className="flex items-center gap-3" aria-label="Collection slide 1 of 3">
-          <span className="block h-[7px] w-[7px] rotate-45 border border-white/50 bg-[#6a7d5f]" />
-          <span className="block h-[7px] w-[7px] rotate-45 border border-white/50" />
-          <span className="block h-[7px] w-[7px] rotate-45 border border-white/50" />
+          {/* Micro trust indicators */}
+          <div className="mt-8 flex items-center gap-6 pt-6 border-t border-white/10 text-xs text-bone/60">
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={16} className="text-sage-400" />
+              <span>100% Authenticity Verified</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <RefreshCw size={14} className="text-champagne-300" />
+              <span>Zero Textile Waste Pledge</span>
+            </div>
+          </div>
         </div>
 
-        <span className="inline-flex items-center gap-2 text-white/65">
-          Scroll to explore <ChevronDown size={17} />
-        </span>
+        {/* Right Gallery Showcase with Top Margin */}
+
+        {/* 1. Desktop Automatic & Interactive 3D Stack (>= 1024px) */}
+        <div
+          className="relative hidden h-[680px] w-[55%] items-center justify-center lg:flex mt-12 lg:mt-16 pt-8"
+          aria-label="Automatic 3D clothing showcase"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {collection.map((item, index) => {
+            // Determine relative position based on activeFrontIndex
+            const positionOffset = (index - activeFrontIndex + collection.length) % collection.length;
+
+            // Define 3D styling states
+            let positionStyles = "";
+            let transformOffset = { x: 0, y: 0, rotate: 0, scale: 1 };
+
+            if (positionOffset === 0) {
+              // Active Front Card (Centered, Large, Full Focus)
+              positionStyles = "z-40 border-champagne-300/80 shadow-luxury-glow opacity-100 cursor-pointer";
+              transformOffset = { x: 0, y: galleryShift * -0.5, rotate: 0, scale: 1.05 };
+            } else if (positionOffset === 1) {
+              // Right Card
+              positionStyles = "z-30 border-white/15 opacity-85 hover:opacity-100 cursor-pointer hover:border-champagne-300/50";
+              transformOffset = { x: 180, y: 35 + galleryShift * 0.3, rotate: 7, scale: 0.92 };
+            } else if (positionOffset === 2) {
+              // Back Card (Deep Perspective)
+              positionStyles = "z-10 border-white/10 opacity-45 hover:opacity-75 cursor-pointer blur-[0.4px]";
+              transformOffset = { x: 0, y: -65 + galleryShift * 0.2, rotate: -4, scale: 0.82 };
+            } else {
+              // Left Card (positionOffset === 3)
+              positionStyles = "z-20 border-white/15 opacity-85 hover:opacity-100 cursor-pointer hover:border-champagne-300/50";
+              transformOffset = { x: -180, y: 40 + galleryShift * 0.3, rotate: -7, scale: 0.92 };
+            }
+
+            const isFront = positionOffset === 0;
+
+            return (
+              <figure
+                key={item.id}
+                onClick={() => {
+                  if (isFront) {
+                    onQuickView(item);
+                  } else {
+                    setActiveFrontIndex(index);
+                  }
+                }}
+                className={`absolute h-[470px] w-[310px] overflow-hidden rounded-2xl border bg-forest-850 p-3.5 shadow-2xl transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1) ${positionStyles}`}
+                style={{
+                  transform: `translate3d(${transformOffset.x}px, ${transformOffset.y}px, 0) rotate(${transformOffset.rotate}deg) scale(${transformOffset.scale})`,
+                }}
+              >
+                <div className="relative h-full w-full overflow-hidden rounded-xl bg-forest-950">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/20 to-transparent" />
+
+                  {/* Top Badge */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                    <span className="rounded-full bg-forest-950/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-champagne-300 border border-white/10 backdrop-blur-md">
+                      {item.label}
+                    </span>
+                    <span className="rounded-full bg-sage-600/80 px-2 py-0.5 text-[9px] font-semibold text-white backdrop-blur-md">
+                      {item.tag}
+                    </span>
+                  </div>
+
+                  {/* Card Caption details */}
+                  <figcaption className="absolute inset-x-0 bottom-0 p-4">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-sage-400">
+                      {item.brand}
+                    </p>
+                    <h3 className="mt-1 font-serif text-lg font-medium text-bone truncate">{item.title}</h3>
+                    <div className="mt-1 flex items-baseline gap-2">
+                      <span className="font-bold text-champagne-300 text-sm">${item.price}</span>
+                      <span className="text-[10px] text-white/40 line-through">${item.originalPrice}</span>
+                    </div>
+                  </figcaption>
+                </div>
+              </figure>
+            );
+          })}
+        </div>
+
+        {/* 2. Mobile & Tablet (< 1024px): Automatic & Interactive Showcase with Top Margin */}
+        <div className="w-full pb-10 pt-8 lg:hidden mt-6">
+          <div className="flex items-center justify-between mb-3 text-xs">
+            <span className="font-semibold uppercase tracking-wider text-sage-400">Featured Archival Piece</span>
+            <span className="text-white/50">{activeFrontIndex + 1} / {collection.length}</span>
+          </div>
+
+          <div
+            onClick={() => onQuickView(collection[activeFrontIndex])}
+            className="relative overflow-hidden rounded-2xl border border-champagne-300/40 bg-forest-850 shadow-2xl cursor-pointer"
+          >
+            <div className="aspect-[4/5] w-full relative sm:aspect-[16/10]">
+              <img
+                src={collection[activeFrontIndex].image}
+                alt={collection[activeFrontIndex].title}
+                className="h-full w-full object-cover transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/30 to-transparent" />
+
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-sage-300">
+                  <span>{collection[activeFrontIndex].label}</span>
+                  <span className="rounded-full bg-forest-900/90 border border-white/10 px-2 py-0.5 text-champagne-300">
+                    {collection[activeFrontIndex].tag}
+                  </span>
+                </div>
+                <h3 className="mt-1 font-serif text-xl font-medium text-bone">{collection[activeFrontIndex].title}</h3>
+                <p className="text-xs text-champagne-300 tracking-wider font-semibold">${collection[activeFrontIndex].price}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Card Selectors */}
+          <div className="mt-4 flex items-center justify-center gap-2">
+            {collection.map((item, idx) => (
+              <button
+                key={item.id}
+                type="button"
+                aria-label={`View ${item.title}`}
+                onClick={() => setActiveFrontIndex(idx)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  activeFrontIndex === idx ? "w-8 bg-champagne-300" : "w-2.5 bg-white/20 hover:bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
-    </main>
+
+      {/* Bottom Editorial Bar */}
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8 lg:px-12 text-[10px] font-medium uppercase tracking-widest text-bone/50 border-t border-white/5">
+        <span className="inline-flex items-center gap-2">
+          VOL. 01 <span className="h-px w-5 bg-champagne-300/40" /> SUSTAINABLE ARCHIVE
+        </span>
+
+        <a
+          href="#discover"
+          className="inline-flex items-center gap-1.5 text-bone/80 transition hover:text-champagne-300"
+        >
+          <span>Scroll to explore</span>
+          <ChevronDown size={14} className="animate-bounce" />
+        </a>
+      </div>
+    </section>
   );
 }

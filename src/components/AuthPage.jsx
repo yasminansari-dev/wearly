@@ -89,23 +89,23 @@ function AuthPage({ initialMode }) {
               backgroundPosition: "center",
             }}
           />
-          <div className="absolute inset-0 bg-[#1d2d25]/75" />
+          <div className="absolute inset-0 bg-[#000]/60" />
 
           <div className="relative z-10 flex w-full flex-col mt-8 sm:p-8 lg:p-12">
             <div className="flex items-center gap-0.5 text-[#f8f2eb]">
             </div>
 
             <div className="max-w-[620px] text-[#f8f2eb]">
-              <h1 className="font-display text-4xl font-bold leading-[0.88] tracking-[-0.06em] sm:text-5xl lg:text-[5rem]">
+              {/* <h1 className="font-display text-4xl font-bold leading-[0.88] tracking-[-0.06em] sm:text-5xl lg:text-[5rem]">
                 Good Clothes <br /> Deserve a <br />
                 <span className="text-moss">Second Chance.</span>
               </h1>
 
               <p className="mt-4 max-w-xl text-base leading-7 text-[#f8f2eb]/80 sm:text-lg">
                 Buy and sell pre-owned clothes with confidence. Quality pieces, better prices, and a more sustainable tomorrow.
-              </p>
+              </p> */}
 
-              <div className="mt-8 flex max-w-lg flex-wrap gap-4 text-sm text-[#f8f2eb]/90">
+              {/* <div className="mt-8 flex max-w-lg flex-wrap gap-4 text-sm text-[#f8f2eb]/90">
                 {[
                   "Verified Sellers",
                   "Sustainable Fashion",
@@ -116,10 +116,10 @@ function AuthPage({ initialMode }) {
                     {item}
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
 
-            <div className="mt-6 sm:mt-10 flex items-center justify-between text-[#f8f2eb]">
+            <div className="mt-12 sm:mt-64 flex items-center justify-between text-[#f8f2eb]">
               <div className="font-display text-3xl italic font-light tracking-[-0.05em] text-[#f3efe9]">
                 Wear Less <span className="block text-left">Waste Less</span>
               </div>
