@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, ChevronDown, Sparkles, ShieldCheck, RefreshCw } from "lucide-react";
-import { CATALOG_PRODUCTS } from "../data/mockData";
+import { ArrowUpRight, Sparkles, ShieldCheck, RefreshCw } from "lucide-react";
+import clo1 from "../assets/clo1.jpg";
+import clo2 from "../assets/clo2.jpg";
+import clo3 from "../assets/clo3.jpg";
+import clo4 from "../assets/clo4.jpg";
 
 export default function ForHero({ onQuickView }) {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeFrontIndex, setActiveFrontIndex] = useState(1); // Default to Center card (index 1)
+  const [activeFrontIndex, setActiveFrontIndex] = useState(1); 
   const [isPaused, setIsPaused] = useState(false);
 
+
   const collection = [
-    { ...CATALOG_PRODUCTS[1], label: "No. 02", tag: "Archive 2022" }, // The Row
-    { ...CATALOG_PRODUCTS[0], label: "No. 01", tag: "Pristine 10/10" }, // Lemaire
-    { ...CATALOG_PRODUCTS[2], label: "No. 03", tag: "Fall Winter" }, // Jil Sander
-    { ...CATALOG_PRODUCTS[3], label: "No. 04", tag: "Collector Edit" }, // Margiela
-  ];
+  { id: 1, image: clo1 },
+  { id: 2, image: clo2 },
+  { id: 3, image: clo3 },
+  { id: 4, image: clo4 },
+];
 
   // Scroll Parallax Handler
   useEffect(() => {
@@ -40,15 +44,9 @@ export default function ForHero({ onQuickView }) {
   const galleryShift = scrollProgress * 25;
 
   return (
-    <section id="hero" className="relative min-h-screen overflow-hidden bg-black text-bone pt-28 lg:pt-10">
+    <section id="hero" className="relative min-h-screen overflow-hidden bg-black text-bone pt-16 lg:pt-6">
       {/* Subtle Luxury Ambient Background */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-60"
-        // style={{
-        //   background:
-        //     "radial-gradient(circle at 65% 35%, rgba(125, 147, 113, 0.22), transparent 45%), radial-gradient(circle at 20% 75%, rgba(229, 213, 190, 0.08), transparent 35%), #0e1712",
-        // }}
-      />
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-60"/>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(125,147,113,0.15),rgba(255,255,255,0))]" />
 
       {/* Main Container */}
@@ -68,7 +66,7 @@ export default function ForHero({ onQuickView }) {
 
           {/* Headline */}
           <h1 className="mt-5 font-serif text-[clamp(2.75rem,5.5vw,5.5rem)] font-light leading-[0.92] tracking-tight text-bone">
-            REWEAR <br />
+            WEARLY<br />
             <span className="italic font-normal text-sage-400">THE FUTURE.</span>
           </h1>
 
@@ -156,38 +154,25 @@ export default function ForHero({ onQuickView }) {
                     setActiveFrontIndex(index);
                   }
                 }}
-                className={`absolute h-[470px] w-[310px] overflow-hidden rounded-2xl border bg-forest-850 p-3.5 shadow-2xl transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1) ${positionStyles}`}
+                className={`absolute h-[470px] w-[310px] overflow-hidden rounded-2xl border bg-forest-850 p-2.5 shadow-2xl transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1) ${positionStyles}`}
                 style={{
                   transform: `translate3d(${transformOffset.x}px, ${transformOffset.y}px, 0) rotate(${transformOffset.rotate}deg) scale(${transformOffset.scale})`,
                 }}
               >
                 <div className="relative h-full w-full overflow-hidden rounded-xl bg-forest-950">
-                  <img
-                    src={item.image}
-                    alt={item.title}
+                 <img 
+                   src={item.image}
+                    alt={`Clothing ${item.id}`}
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
+                    />  
                   <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/20 to-transparent" />
 
-                  {/* Top Badge */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                    <span className="rounded-full bg-forest-950/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-champagne-300 border border-white/10 backdrop-blur-md">
-                      {item.label}
-                    </span>
-                    <span className="rounded-full bg-sage-600/80 px-2 py-0.5 text-[9px] font-semibold text-white backdrop-blur-md">
-                      {item.tag}
-                    </span>
-                  </div>
+                
+                 
 
                   {/* Card Caption details */}
                   <figcaption className="absolute inset-x-0 bottom-0 p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-sage-400">
-                      {item.brand}
-                    </p>
-                    <h3 className="mt-1 font-serif text-lg font-medium text-bone truncate">{item.title}</h3>
                     <div className="mt-1 flex items-baseline gap-2">
-                      <span className="font-bold text-champagne-300 text-sm">${item.price}</span>
-                      <span className="text-[10px] text-white/40 line-through">${item.originalPrice}</span>
                     </div>
                   </figcaption>
                 </div>
@@ -210,21 +195,10 @@ export default function ForHero({ onQuickView }) {
             <div className="aspect-[4/5] w-full relative sm:aspect-[16/10]">
               <img
                 src={collection[activeFrontIndex].image}
-                alt={collection[activeFrontIndex].title}
                 className="h-full w-full object-cover transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/30 to-transparent" />
 
-              <div className="absolute bottom-4 left-4 right-4">
-                <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-sage-300">
-                  <span>{collection[activeFrontIndex].label}</span>
-                  <span className="rounded-full bg-forest-900/90 border border-white/10 px-2 py-0.5 text-champagne-300">
-                    {collection[activeFrontIndex].tag}
-                  </span>
-                </div>
-                <h3 className="mt-1 font-serif text-xl font-medium text-bone">{collection[activeFrontIndex].title}</h3>
-                <p className="text-xs text-champagne-300 tracking-wider font-semibold">${collection[activeFrontIndex].price}</p>
-              </div>
             </div>
           </div>
 
@@ -234,7 +208,6 @@ export default function ForHero({ onQuickView }) {
               <button
                 key={item.id}
                 type="button"
-                aria-label={`View ${item.title}`}
                 onClick={() => setActiveFrontIndex(idx)}
                 className={`h-2.5 rounded-full transition-all duration-300 ${
                   activeFrontIndex === idx ? "w-8 bg-champagne-300" : "w-2.5 bg-white/20 hover:bg-white/40"
@@ -245,20 +218,6 @@ export default function ForHero({ onQuickView }) {
         </div>
       </div>
 
-      {/* Bottom Editorial Bar */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8 lg:px-12 text-[10px] font-medium uppercase tracking-widest text-bone/50 border-t border-white/5">
-        <span className="inline-flex items-center gap-2">
-          VOL. 01 <span className="h-px w-5 bg-champagne-300/40" /> SUSTAINABLE ARCHIVE
-        </span>
-
-        <a
-          href="#discover"
-          className="inline-flex items-center gap-1.5 text-bone/80 transition hover:text-champagne-300"
-        >
-          <span>Scroll to explore</span>
-          <ChevronDown size={14} className="animate-bounce" />
-        </a>
-      </div>
-    </section>
+       </section>
   );
 }

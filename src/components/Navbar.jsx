@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, ShoppingBag, X, Shield, Sparkles, User, Heart } from "lucide-react";
+import { PiCoatHangerBold } from "react-icons/pi";
 
 const primaryLinks = [
   { name: "Discover", href: "#discover" },
@@ -56,7 +57,7 @@ function Navbar({ currentUser, cartCount = 0, wishlistCount = 0, onOpenCart, onO
           aria-label="Main navigation"
         >
           {/* Brand Logo */}
-          <a
+          {/* <a
             href="#hero"
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -69,8 +70,27 @@ function Navbar({ currentUser, cartCount = 0, wishlistCount = 0, onOpenCart, onO
               W
             </span>
             <span className="font-display tracking-[0.25em] text-sm text-bone">WEARLY</span>
-          </a>
+          </a> */}
 
+
+        <a
+  href="#hero"
+  onClick={() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setMenuOpen(false);
+  }}
+  aria-label="Wearly Home"
+  className="group flex items-center gap-3 text-sm font-semibold tracking-ultra text-[#f5f2eb] transition-all hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500"
+>
+  <span className="grid h-8 w-8 place-items-center rounded-full border border-champagne-300/40 bg-forest-850/80 shadow-luxury transition-transform duration-300 group-hover:scale-105 group-hover:border-champagne-300">
+    
+    <PiCoatHangerBold className="text-lg text-champagne-300" />
+  </span>
+
+  <span className="font-display tracking-[0.25em] text-sm text-bone">
+    WEARLY
+  </span>
+</a>
           {/* Desktop Nav Links */}
           <div className="hidden items-center justify-center gap-8 lg:flex">
             {primaryLinks.map((link) => {
@@ -180,6 +200,15 @@ function Navbar({ currentUser, cartCount = 0, wishlistCount = 0, onOpenCart, onO
                 W
               </span>
               <span className="font-display text-xs font-bold tracking-widest text-bone">WEARLY</span>
+              <svg width="42" height="42" viewBox="0 0 64 64" fill="none">
+  <path
+    d="M36 14a4 4 0 1 0-8 0c0 2 1.3 3.4 3 4.3v4.2L10 38h44L33 22.5v-4.2c1.7-.9 3-2.3 3-4.3Z"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+</svg>
             </div>
             <button
               type="button"
