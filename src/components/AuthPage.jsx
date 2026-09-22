@@ -22,6 +22,7 @@ function AuthPage({ initialMode }) {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     setMode(initialMode);
@@ -54,11 +55,20 @@ function AuthPage({ initialMode }) {
         const tokens = await loginUser({ email: formData.email, password: formData.password });
         localStorage.setItem("wearly_access_token", tokens.access_token);
         localStorage.setItem("wearly_refresh_token", tokens.refresh_token);
-        setStatus("You are logged in. Your session is ready.");
       } else {
-        await registerUser({ username: formData.username, email: formData.email, password: formData.password });
-        switchMode("login");
-        setStatus("Account created. You can now log in.");
+       await registerUser({
+  username: formData.username,
+  email: formData.email,
+  password: formData.password,
+});
+
+setShowSuccessModal(true);
+
+setFormData({
+  username: "",
+  email: "",
+  password: "",
+});
       }
     } catch (requestError) {
       setError(requestError.message);
@@ -96,27 +106,6 @@ function AuthPage({ initialMode }) {
             </div>
 
             <div className="max-w-[620px] text-[#f8f2eb]">
-              {/* <h1 className="font-display text-4xl font-bold leading-[0.88] tracking-[-0.06em] sm:text-5xl lg:text-[5rem]">
-                Good Clothes <br /> Deserve a <br />
-                <span className="text-moss">Second Chance.</span>
-              </h1>
-
-              <p className="mt-4 max-w-xl text-base leading-7 text-[#f8f2eb]/80 sm:text-lg">
-                Buy and sell pre-owned clothes with confidence. Quality pieces, better prices, and a more sustainable tomorrow.
-              </p> */}
-
-              {/* <div className="mt-8 flex max-w-lg flex-wrap gap-4 text-sm text-[#f8f2eb]/90">
-                {[
-                  "Verified Sellers",
-                  "Sustainable Fashion",
-                  "Great Preloved Prices",
-                  "Second Hand, High Value.",
-                ].map((item) => (
-                  <div key={item} className="min-w-[120px] rounded-full border border-[#f8f2eb]/20 bg-[#f8f2eb]/5 px-3 py-2 text-center backdrop-blur-[1px]">
-                    {item}
-                  </div>
-                ))}
-              </div> */}
             </div>
 
             <div className="mt-12 sm:mt-64 flex items-center justify-between text-[#f8f2eb]">
@@ -276,6 +265,49 @@ function AuthPage({ initialMode }) {
           </div>
         </section>
       </div>
+
+      //success popup
+
+      {showSuccessModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 backdrop-blur-sm p-4">
+    <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl animate-in fade-in zoom-in duration-300">
+
+      <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+        <svg
+          className="h-10 w-10 text-green-600"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2.5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+      </div>
+
+      <h2 className="mt-6 text-center text-2xl font-bold text-[#233126]">
+        Account Created!
+      </h2>
+
+      <p className="mt-3 text-center text-sm leading-6 text-gray-600">
+        Your Wearly account has been created successfully.
+      </p>
+
+      <button
+        onClick={() => {
+          setShowSuccessModal(false);
+          window.location.href = "/#home";
+        }}
+        className="mt-7 w-full rounded-2xl bg-[#1d2d25] py-3.5 font-semibold text-white transition hover:bg-[#233126]"
+      >
+        Continue to Login
+      </button>
+    </div>
+  </div>
+)}
     </main>
   );
 }
